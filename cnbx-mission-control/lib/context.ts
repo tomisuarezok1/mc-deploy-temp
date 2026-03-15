@@ -22,30 +22,33 @@ export function filterAgents(agents: Agent[], context: Context): Agent[] {
     case "todo":
       return agents;
     case "personal":
-      return agents.filter(a => a.workspace === "personal");
+      return agents.filter((a) => a.workspace === "personal");
     case "trabajo":
-      return agents.filter(a => a.workspace === "cnbx");
+      return agents.filter((a) => a.workspace === "cnbx");
     case "arquitex":
-      return agents.filter(a => a.workspace === "cnbx" && a.project === "arquitex");
+      return agents.filter((a) => a.workspace === "cnbx" && a.project === "arquitex");
     case "blackfin":
-      return agents.filter(a => a.workspace === "cnbx" && a.project === "blackfin");
+      return agents.filter((a) => a.workspace === "cnbx" && a.project === "blackfin");
     default:
       return agents;
   }
 }
 
-export function filterByContext(items, context) {
+export function filterByContext<T extends { workspace?: string; project?: string }>(
+  items: T[],
+  context: Context
+): T[] {
   switch (context) {
     case "todo":
       return items;
     case "personal":
-      return items.filter(i => i.workspace === "personal");
+      return items.filter((i) => i.workspace === "personal");
     case "trabajo":
-      return items.filter(i => i.workspace === "cnbx");
-    case "arquitex(º
-      return items.filter(i => i.workspace === "cnbx" && i.project === "arquitex");
+      return items.filter((i) => i.workspace === "cnbx");
+    case "arquitex":
+      return items.filter((i) => i.workspace === "cnbx" && i.project === "arquitex");
     case "blackfin":
-      return items.filter(i => i.workspace === "cnbx" && i.project === "blackfin");
+      return items.filter((i) => i.workspace === "cnbx" && i.project === "blackfin");
     default:
       return items;
   }
