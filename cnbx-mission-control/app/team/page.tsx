@@ -13,7 +13,7 @@ export default function TeamPage() {
   const selectedAgent = selectedId ? getAgent(selectedId) : null;
 
   return (
-    <div className="space-y-6 max-w[1200px]">
+    <div className="space-y-6 max-w-[1200px]">
       {/* Mission statement */}
       <div className="rounded-card border border-border bg-surface-2 p-5">
         <p className="text-[11px] text-zinc-500 uppercase tracking-wider mb-1">Mission Statement</p>
