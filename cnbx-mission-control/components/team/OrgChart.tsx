@@ -2,8 +2,8 @@
 
 import type { Agent, Context } from "@/lib/types";
 import { getProjectLabel } from "@/lib/utils";
-import StatusDot from "A/components/ui/StatusDot";
-import Badge from "A/components/ui/Badge";
+import StatusDot from "@/components/ui/StatusDot";
+import Badge from "@/components/ui/Badge";
 
 interface OrgChartProps {
   agents: Agent[];
@@ -54,7 +54,7 @@ function AgentNode({
 }
 
 function ConnectorLine() {
-  return <div className="{w-px h-6 bg-border mx-auto}" />;
+  return <div className="w-px h-6 bg-border mx-auto" />;
 }
 
 function HorizontalConnectors({ count }: { count: number }) {
@@ -67,11 +67,85 @@ function HorizontalConnectors({ count }: { count: number }) {
               className={`h-px bg-border ${
                 i === 0 ? "w-1/2 ml-auto" : i === count - 1 ? "w-1/2 mr-auto" : "w-full"
               }`}
-             />
+            />
             <div className="w-px h-4 bg-border" />
           </div>
         ))}
       </div>
     </div>
-  
- "�
+  );
+}
+
+export default function OrgChart({ agents, context, selectedId, onSelect }: OrgChartProps) {
+  const personal = agents.filter((a) => a.workspace === "personal");
+  const cnbx = agents.filter((a) => a.workspace === "cnbx");
+  const chief = cnbx.find((a) => a.id === "chief");
+  const reports = cnbx.filter((a) => a.id !== "chief");
+
+  const showPersonal = context === "todo" || context === "personal";
+  const showCnbx = context !== "personal";
+
+  return (
+    <div className="space-y-10">
+      {/* Personal team — flat, no hierarchy */}
+      {showPersonal && personal.length > 0 && (
+        <div
+          className="rounded-card border p-6"
+          style={{ borderColor: "#0F6E5640" }}
+        >
+          <h3 className="text-[13px] font-semibold text-zinc-400 mb-5 uppercase tracking-wider">
+            Equipo Personal
+          </h3>
+          <div className="flex justify-center gap-6">
+            {personal.map((agent) => (
+              <AgentNode
+                key={agent.id}
+                agent={agent}
+                selected={selectedId === agent.id}
+                onSelect={() => onSelect(agent.id)}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* CNBX team — Chief on top, reports below */}
+      {showCnbx && cnbx.length > 0 && (
+        <div
+          className="rounded-card border p-6"
+          style={{ borderColor: "#534AB740" }}
+        >
+          <h3 className="text-[13px] font-semibold text-zinc-400 mb-5 uppercase tracking-wider">
+            Equipo CNBX
+          </h3>
+          <div className="flex flex-col items-center">
+            {chief && (
+              <AgentNode
+                agent={chief}
+                selected={selectedId === chief.id}
+                onSelect={() => onSelect(chief.id)}
+              />
+            )}
+
+            {reports.length > 0 && (
+              <>
+                <ConnectorLine />
+                <HorizontalConnectors count={reports.length} />
+                <div className="flex justify-center gap-6">
+                  {reports.map((agent) => (
+                    <AgentNode
+                      key={agent.id}
+                      agent={agent}
+                      selected={selectedId === agent.id}
+                      onSelect={() => onSelect(agent.id)}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
