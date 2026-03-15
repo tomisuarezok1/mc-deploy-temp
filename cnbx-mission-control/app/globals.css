@@ -5,7 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  -fnt-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 body {
@@ -17,8 +17,9 @@ body {
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
-  height: 6px
-}::-webkit-scrollbar-track {
+  height: 6px;
+}
+::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
@@ -30,7 +31,7 @@ body {
 }
 
 /* Smooth transitions */
-) {
+* {
   transition-property: background-color, border-color, color, opacity;
   transition-duration: 150ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
