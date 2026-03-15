@@ -18,7 +18,7 @@ export default function TeamPage() {
       <div className="rounded-card border border-border bg-surface-2 p-5">
         <p className="text-[11px] text-zinc-500 uppercase tracking-wider mb-1">Mission Statement</p>
         <p className="text-[14px] text-zinc-300 leading-relaxed">
-          Construir una organización de agentes AI que opera los negocios de CNBX Holding con autonomía
+          Construir una organizaci\u00f3n de agentes AI que opera los negocios de CNBX Holding con autonom\u00eda
           creciente, generando valor real y medible para cada proyecto del portafolio.
         </p>
       </div>
